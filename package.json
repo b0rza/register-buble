@@ -1,0 +1,19 @@
+{
+  "name": "register-buble",
+  "version": "1.0.0",
+  "description": "",
+  "main": "register.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/b0rza/register-buble.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/b0rza/register-buble/issues"
+  },
+  "homepage": "https://github.com/b0rza/register-buble#readme"
+}
