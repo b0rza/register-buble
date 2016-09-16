@@ -1,7 +1,6 @@
 var fs = require('fs');
 var buble = require('buble');
 
-
 if(require.extensions) {
 	require.extensions['.js'] = transpile;
 }
