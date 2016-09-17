@@ -1,18 +1,36 @@
-var fs = require('fs');
-var buble = require('buble');
+'use strict';
 
-if(require.extensions) {
-	require.extensions['.js'] = transpile;
+const fs = require('fs');
+const buble = require('buble');
+const chalk = require('chalk');
+
+if (require.extensions) {
+	require.extensions['.js'] = loadFile;
 }
 
-function getContents (filename) {
-	var contents = fs.readFileSync(filename, 'utf8');
-	return contents;
+function loadFile(module, filename) {
+	let contents = fs.readFileSync(filename, 'utf8');
+
+	try {
+    let result = buble.transform(contents);
+  	return module._compile(result.code, filename);
+	} catch(err) {
+    handleLoadingError(err, filename);
+	}
 }
 
-function transpile (module, filename) {
-	var contents = getContents(filename);
-	var result = buble.transform(contents);
+function handleLoadingError(err, filename) {
+  if (err.name === 'CompileError') {
+    console.error(chalk.red.bold('CompileError:'), chalk.white(err.message));
+    console.error(`\n${ filename }:`);
+    console.error(err.snippet);
+    return;
+  }
+  if (err.code === 'MODULE_NOT_FOUND') {
+    console.error(chalk.red.bold('LoadingError:'), chalk.white(err.message));
+    console.error(` from: ${ filename }`);
+    return;
+  }
 
-	return module._compile(result.code, filename);
+  throw err;
 }
