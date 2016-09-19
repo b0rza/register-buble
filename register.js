@@ -5,18 +5,18 @@ const buble = require('buble');
 const chalk = require('chalk');
 
 if (require.extensions) {
-	require.extensions['.js'] = loadFile;
+  require.extensions['.js'] = loadFile;
 }
 
 function loadFile(module, filename) {
-	let contents = fs.readFileSync(filename, 'utf8');
+  let contents = fs.readFileSync(filename, 'utf8');
 
-	try {
+  try {
     let result = buble.transform(contents);
-  	return module._compile(result.code, filename);
-	} catch(err) {
+    return module._compile(result.code, filename);
+  } catch(err) {
     handleLoadingError(err, filename);
-	}
+  }
 }
 
 function handleLoadingError(err, filename) {
