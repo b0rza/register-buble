@@ -18,7 +18,7 @@ test('test compile errors', t => {
 
   try {
     require(unsupported_path);
-  } catch (err){
+  } catch (err) {
     t.comment(err);
     t.equal(err.name, 'CompileError');
   }
@@ -33,10 +33,10 @@ test('test module not found errors', t => {
 
   try {
     require(not_found_path);
-  }
-  catch (err){
+  } catch (err) {
+    t.comment(err);
     t.equal(err.code, 'MODULE_NOT_FOUND');
-    t.equal(err.message, `Cannot find module '${not_found_path}'`);
+    t.equal(err.message, `Cannot find module '${ not_found_path }'`);
   }
 
   t.end();
